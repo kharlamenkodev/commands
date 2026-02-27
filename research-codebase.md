@@ -82,3 +82,6 @@ Output the final report in this format:
 ## Recommended Investigation Order
 1. <highest-risk file or area> — <why start here>
 2. ...
+
+## Output
+Output must be stored in ./.thoughts/research/<DATE-TASK-SHORT-NAME>.md
