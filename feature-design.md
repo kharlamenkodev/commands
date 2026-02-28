@@ -237,6 +237,76 @@ Do not proceed to implementation or suggest the design is final until explicit a
 
 ---
 
+### Stage 8 — Build Implementation Plan
+
+Once the design is approved, decompose the work into ordered implementation stages. Each stage must be a self-contained unit of work that can be implemented, tested, and reviewed independently.
+
+#### Plan structure
+
+Create a `.thoughts/plan/` directory (relative to the current working directory). Write each stage as a separate Markdown file:
+
+```
+.thoughts/plan/
+  00-overview.md
+  01-<stage-name>.md
+  02-<stage-name>.md
+  ...
+```
+
+#### `00-overview.md`
+
+A short summary file containing:
+- Feature name and link to the approved design document / research file
+- Total number of stages
+- Ordered list of stage file names with one-line descriptions
+- Dependencies between stages (which stages must complete before others can start)
+
+#### Individual stage files (`01-*.md`, `02-*.md`, ...)
+
+Each stage file must follow this template:
+
+```markdown
+# Stage N — <Stage Title>
+
+## Goal
+<1–2 sentences: what this stage accomplishes>
+
+## Input
+<What must exist before this stage starts — prior stage outputs, existing code, config>
+
+## Changes
+<Bulleted list of concrete file-level changes: create, modify, or delete>
+- `path/to/file.ext` — <what changes and why>
+
+## Acceptance Criteria
+<Bulleted checklist — each item is a verifiable condition>
+- [ ] <criterion>
+
+## Tests
+<Which tests from the Testing Strategy cover this stage>
+- [ ] <test description referencing the design document table>
+
+## Risks & Notes
+<Anything the implementer should watch out for in this stage>
+```
+
+#### Sequencing rules
+
+- Start with foundational changes (data models, interfaces, types) before behavior
+- Group coupled changes into the same stage to avoid broken intermediate states
+- Infrastructure / migration stages come before application logic that depends on them
+- Test additions belong in the same stage as the code they cover
+- The final stage should include cleanup: remove feature flags, update documentation, delete temporary scaffolding
+
+#### Writing the plan
+
+1. Create the `.thoughts/plan/` directory
+2. Write `00-overview.md` first
+3. Write each stage file in order
+4. Present the overview to the user as confirmation that the plan is ready
+
+---
+
 ## Diagram Rules
 - Ground every diagram element in what was found in the researcher report or source files — do not invent components
 - Use valid Mermaid syntax
@@ -249,3 +319,4 @@ Do not proceed to implementation or suggest the design is final until explicit a
 - `Glob` — find additional files referenced in the report but not fully described
 - `Grep` — locate specific symbols, types, or patterns across files
 - `AskUserQuestion` — clarify ambiguous requirements, scope boundaries, or architectural trade-offs before committing to a design
+- `Write` — create plan stage files in `.thoughts/plan/`
