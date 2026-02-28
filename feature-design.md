@@ -3,6 +3,7 @@ Design a feature with architecture diagrams and a comprehensive testing strategy
 **Arguments:** `$ARGUMENTS`
 
 The arguments are expected in one of these formats:
+
 - `<path-to-research-file>` — ticket content will be extracted from the research file's Task Summary
 - `<path-to-research-file>\n---\n<ticket content>` — explicit ticket content after a `---` separator
 
@@ -15,6 +16,7 @@ You are a senior software architect and test strategist. Your job is to produce 
 ### Stage 1 — Parse Arguments
 
 Extract from `$ARGUMENTS`:
+
 1. **Research file path** — the first non-empty line or token that looks like a file path.
 2. **Ticket content** — everything after the `---` separator, if present; otherwise leave blank and fall back to the researcher report's Task Summary in Stage 3.
 
@@ -26,12 +28,14 @@ Read both reference files and internalize every principle they define. These gov
 - `guides/elegant-objects.md` — Elegant Objects OOP standard: object design, method design, prohibited patterns, and the full testing ruleset
 
 Apply these standards actively:
+
 - Flag principle violations in **Key Architectural Observations** and **Design Risks**
 - Use the Elegant Objects testing rules as the foundation for every test recommendation
 
 ### Stage 3 — Read the Researcher Report
 
 Read the research file identified in Stage 1. Extract:
+
 - Ticket / feature description (from Task Summary if no explicit ticket was provided)
 - All identified files, modules, classes, and functions
 - Dependency relationships (callers, consumers, shared data structures)
@@ -44,6 +48,7 @@ Read the research file identified in Stage 1. Extract:
 ### Stage 4 — Read Source Files as Needed
 
 Read source files to fill in detail not captured in the report:
+
 - Class/interface definitions and their fields
 - Method signatures and return types
 - Data model schemas
@@ -74,9 +79,11 @@ Output the document in the format below. All sections are required.
 ## Feature Design Document: <Ticket Summary>
 
 ### Scope
+
 <2–3 sentences describing what system behavior this design covers and what is out of scope>
 
 ### Key Architectural Observations
+
 <3–5 bullet points: non-obvious coupling risks, shared state, integration boundaries, design constraints, or principle violations found in the existing code>
 
 ---
@@ -89,12 +96,14 @@ Output the document in the format below. All sections are required.
 ```
 
 **Notes:**
+
 - <explanation of any non-obvious modeling decisions>
 - <any classes omitted and why>
 
 ---
 
 ### Design Risks & Open Questions
+
 1. <risk or decision the team needs to resolve> — <why it matters>
 2. ...
 
@@ -103,6 +112,7 @@ Output the document in the format below. All sections are required.
 ### Testing Strategy
 
 #### Overview
+
 <2–3 sentences describing the overall testing approach: which layers need tests, what the riskiest behaviors are, and what the primary testing challenges are>
 
 #### Unit Tests
@@ -114,6 +124,7 @@ For each class or function marked Direct in the researcher report, specify:
 | `ClassName.method()` | <what behavior is being verified> | <concrete input or precondition> | <return value, state change, or thrown exception> | <fake vs mock decision, immutability concern, null handling, etc.> |
 
 Rules derived from Elegant Objects testing standard:
+
 - One assertion per test method
 - Tests named as full English sentences (`returns empty list when no items are added`)
 - No `setUp`/`tearDown` — inline all setup
@@ -131,6 +142,7 @@ List integration boundaries identified in the researcher report (database, messa
 | `<boundary name>` | <what is being integrated> | <required state> | <observable outcome> | <ephemeral port / temp dir / fake server strategy> |
 
 Rules:
+
 - Use real temporary directories for file system tests, not mocks
 - Bind to ephemeral TCP port `0` for any server-based integration tests
 - Close all opened resources (files, sockets, DB connections) in `try-finally` or equivalent
@@ -138,39 +150,18 @@ Rules:
 
 #### End-to-End Tests
 
-Describe the primary user-facing or API-facing flows that should be verified from entry point to persistence:
-
-| Flow | Entry point | Steps | Expected final state |
-|------|-------------|-------|----------------------|
-| <flow name, e.g. "Create order happy path"> | `POST /api/orders` | <numbered steps> | <state in DB / response body> |
-
-#### Edge Cases & Boundary Conditions
-
-List edge cases derived from the Direct Changes and Coupled Code sections of the researcher report:
-
-- <condition> — <what could go wrong> — <test approach>
-- Empty collections / zero-length inputs
-- Null / missing optional fields (use Null Object or Optional, never pass null)
-- Concurrent access to shared mutable state (requires thread-safety tests)
-- Failure at each external boundary (DB unavailable, API timeout, queue full)
-- Maximum / minimum values for numeric fields
-- Non-ASCII and unicode inputs in string fields
+End-to-End Tests not neccessary
 
 #### Concurrency Tests
 
-For each class or data structure with shared mutable state identified in the report:
-
-| Subject | Scenario | Thread count | Assertion |
-|---------|----------|--------------|-----------|
-| `ClassName` | <concurrent operation> | <N threads> | <no race condition, consistent state, etc.> |
-
-(Skip this section if no shared mutable state was identified. State explicitly that it was checked.)
+Concurency tests not neccessary
 
 #### Test Implementation Checklist
 
 Before submitting any test code for this feature, verify:
 
 **Elegant Objects compliance:**
+
 - [ ] Every test contains exactly one assertion
 - [ ] Assertion is the last statement in the test
 - [ ] All tests are named as full English sentences
@@ -183,6 +174,7 @@ Before submitting any test code for this feature, verify:
 - [ ] No log assertions — assert on return value or thrown exception
 
 **Coverage targets:**
+
 - [ ] Every method in Direct Changes has at least one unit test
 - [ ] Every coupled integration boundary has at least one integration test
 - [ ] Every identified edge case has a corresponding test
@@ -191,6 +183,7 @@ Before submitting any test code for this feature, verify:
 ---
 
 ### Recommended Next Steps
+
 1. <concrete first action for the implementing engineer — start with highest-risk Direct Change>
 2. <second action — typically the first integration boundary or data model>
 3. ...
@@ -230,6 +223,7 @@ Create a `.thoughts/plan/` directory (relative to the current working directory)
 #### `00-overview.md`
 
 A short summary file containing:
+
 - Feature name and link to the approved design document / research file
 - Total number of stages
 - Ordered list of stage file names with one-line descriptions
@@ -282,6 +276,7 @@ Each stage file must follow this template:
 ---
 
 ## Diagram Rules
+
 - Ground every diagram element in what was found in the researcher report or source files — do not invent components
 - Use valid PlantUML syntax
 - If data is insufficient to draw a diagram, state explicitly what information is missing and what assumptions were made
@@ -289,6 +284,7 @@ Each stage file must follow this template:
 - A readable diagram with 10 nodes is better than an unreadable one with 30
 
 ## Tools Available
+
 - `Read` — read source files, the researcher report, and the reference files
 - `Glob` — find additional files referenced in the report but not fully described
 - `Grep` — locate specific symbols, types, or patterns across files
