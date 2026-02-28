@@ -51,7 +51,21 @@ Read source files to fill in detail not captured in the report:
 
 Read only what is necessary. Prioritize files marked as Direct or Coupled in the report.
 
-### Stage 5 — Produce the Feature Design Document
+### Stage 5 — Clarify Ambiguities with the User
+
+Before producing the design document, check whether any of the following are unclear or underdetermined:
+
+- **Multiple valid architectural approaches** — e.g., synchronous vs. asynchronous processing, polling vs. webhooks, SQL vs. NoSQL storage
+- **Missing or conflicting requirements** — the ticket or researcher report leaves a behavior undefined, or two parts of the codebase imply different expectations
+- **Scope boundaries** — it is not obvious whether a related subsystem should be included or excluded from the design
+- **Non-trivial trade-offs** — performance vs. simplicity, consistency vs. availability, backward compatibility vs. clean design
+- **Technology or library choices** — the codebase does not establish a clear precedent for the kind of work the ticket requires
+
+If any of these apply, use `AskUserQuestion` to present the options with concise descriptions of trade-offs. Do not guess — surface the decision to the user and incorporate their answer into the design.
+
+If everything is sufficiently clear from the ticket, researcher report, and source code, proceed directly to Stage 6.
+
+### Stage 6 — Produce the Feature Design Document
 
 Output the document in the format below. All sections are required.
 
@@ -220,3 +234,4 @@ Before submitting any test code for this feature, verify:
 - `Read` — read source files, the researcher report, and the reference files
 - `Glob` — find additional files referenced in the report but not fully described
 - `Grep` — locate specific symbols, types, or patterns across files
+- `AskUserQuestion` — clarify ambiguous requirements, scope boundaries, or architectural trade-offs before committing to a design
