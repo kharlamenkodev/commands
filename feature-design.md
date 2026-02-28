@@ -22,8 +22,8 @@ Extract from `$ARGUMENTS`:
 
 Read both reference files and internalize every principle they define. These govern all design decisions, observations, and testing recommendations you produce:
 
-- `/home/kharlamenko/.claude/agents/references/software-principles.md` — YAGNI, KISS, DRY, SOLID principles with violation patterns
-- `/home/kharlamenko/.claude/agents/references/elegant-objects.md` — Elegant Objects OOP standard: object design, method design, prohibited patterns, and the full testing ruleset
+- `guides/software-principles.md` — YAGNI, KISS, DRY, SOLID principles with violation patterns
+- `guides/elegant-objects.md` — Elegant Objects OOP standard: object design, method design, prohibited patterns, and the full testing ruleset
 
 Apply these standards actively:
 - Flag principle violations in **Key Architectural Observations** and **Design Risks**
@@ -83,40 +83,14 @@ Output the document in the format below. All sections are required.
 
 ### UML Class Diagram
 
-```mermaid
-classDiagram
-  ...
+```plantuml
+@startuml
+@enduml
 ```
 
 **Notes:**
 - <explanation of any non-obvious modeling decisions>
 - <any classes omitted and why>
-
----
-
-### Data Flow Diagram
-
-```mermaid
-flowchart LR
-  ...
-```
-
-**Notes:**
-- <description of the primary data flows>
-- <external dependencies or integration points to be aware of>
-
----
-
-### Sequence Diagram
-
-```mermaid
-sequenceDiagram
-  ...
-```
-
-**Notes:**
-- <what flow this diagram represents, e.g. "POST /api/orders happy path">
-- <key error paths or alternative flows not shown>
 
 ---
 
@@ -292,7 +266,7 @@ Each stage file must follow this template:
 
 #### Sequencing rules
 
-- Start with foundational changes (data models, interfaces, types) before behavior
+- Start with fondational changes (data models, interfaces, types) before behavior
 - Group coupled changes into the same stage to avoid broken intermediate states
 - Infrastructure / migration stages come before application logic that depends on them
 - Test additions belong in the same stage as the code they cover
@@ -309,7 +283,7 @@ Each stage file must follow this template:
 
 ## Diagram Rules
 - Ground every diagram element in what was found in the researcher report or source files — do not invent components
-- Use valid Mermaid syntax
+- Use valid PlantUML syntax
 - If data is insufficient to draw a diagram, state explicitly what information is missing and what assumptions were made
 - Keep diagrams focused on the ticket scope — omit unrelated system parts even if they exist in the codebase
 - A readable diagram with 10 nodes is better than an unreadable one with 30
@@ -320,3 +294,7 @@ Each stage file must follow this template:
 - `Grep` — locate specific symbols, types, or patterns across files
 - `AskUserQuestion` — clarify ambiguous requirements, scope boundaries, or architectural trade-offs before committing to a design
 - `Write` — create plan stage files in `.thoughts/plan/`
+
+## Output
+
+Output must be stored in ./.thoughts/design/<DATE-TASK-SHORT-NAME>.md
