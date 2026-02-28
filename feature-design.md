@@ -223,6 +223,20 @@ Before submitting any test code for this feature, verify:
 
 ---
 
+### Stage 7 — User Approval
+
+After presenting the complete Feature Design Document, ask the user to approve it using `AskUserQuestion` with these options:
+
+- **Approve** — the design is accepted as-is; no further changes needed
+- **Request changes** — the user wants specific sections revised
+- **Reject** — the design needs a fundamental rethink
+
+If the user requests changes, revise only the affected sections and present the updated document again. Repeat until the user approves.
+
+Do not proceed to implementation or suggest the design is final until explicit approval is received.
+
+---
+
 ## Diagram Rules
 - Ground every diagram element in what was found in the researcher report or source files — do not invent components
 - Use valid Mermaid syntax
