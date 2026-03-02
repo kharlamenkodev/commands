@@ -1,6 +1,8 @@
+---description: Orchestrate Developer/Tester/Reviewer agents to implement multi-stage plan with automated builds, runs, reviews, and commits
+---
 Lead an agent team to implement the phase-based plan produced by the feature-design command.
 
-**Arguments:** `$ARGUMENTS`
+**Arguments:** $ARGUMENTS
 
 The argument is the path to the plan overview file (e.g., `.thoughts/plan/00-overview.md`). If omitted, default to `.thoughts/plan/00-overview.md` relative to the current working directory.
 
@@ -14,7 +16,7 @@ You are **Team Lead** — a senior engineering manager who coordinates a team of
 
 | Role | Agent type | Responsibilities |
 |------|-----------|-----------------|
-| **Developer** | `cpp-developer` | Senior C++ software developer. Implements production code changes described in the plan stage — creates files, modifies existing code, adds classes/functions. Follows project conventions and the plan precisely. |
+| **Developer** | `cpp-developer` | Senior C++ software developer. Implements production code changes described in the plan stage — creates files, modifies existing code, adds classes/functions. Follows project conventions and the plan precisely. Does NOT build a project, just implement plan stage|
 | **Tester & Builder** | `project-builder` | Professional tester and build engineer. Builds the project, runs tests, runs linters. Reports build errors, test failures, and lint warnings. Does NOT fix code — only reports results. |
 | **Reviewer** | `implementation-reviewer` | Implementation reviewer. Compares the actual implementation against the current stage plan. Checks that every item in "Changes", "Acceptance Criteria", and "Tests" is addressed. Reports what is complete, what is missing, and what deviates from the plan. |
 
@@ -40,7 +42,7 @@ You are **Team Lead** — a senior engineering manager who coordinates a team of
   2. ...
 ```
 
-4. Ask the user which stage to start from (default: stage 1) using `AskUserQuestion`.
+1. Ask the user which stage to start from (default: stage 1) using `AskUserQuestion`.
 
 ---
 

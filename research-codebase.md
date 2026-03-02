@@ -1,3 +1,5 @@
+---description: Analyze codebase impact for a task using parallel codebase-researcher subagents and produce unified impact map
+---
 Analyze the following task and perform a thorough codebase impact research using parallel subagents.
 
 **Task:** $ARGUMENTS

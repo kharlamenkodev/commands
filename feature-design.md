@@ -1,3 +1,5 @@
+---description: Produce complete feature design document with architecture diagrams, testing strategy, and staged implementation plan based on researcher report
+---
 Design a feature with architecture diagrams and a comprehensive testing strategy.
 
 **Arguments:** `$ARGUMENTS`
