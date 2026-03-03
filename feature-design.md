@@ -24,15 +24,19 @@ Extract from `$ARGUMENTS`:
 
 ### Stage 2 — Load Design Standards
 
-Read both reference files and internalize every principle they define. These govern all design decisions, observations, and testing recommendations you produce:
+Read all reference files and internalize every principle they define. These govern all design decisions, observations, code implementations, and testing recommendations you produce:
 
 - `guides/software-principles.md` — YAGNI, KISS, DRY, SOLID principles with violation patterns
 - `guides/elegant-objects.md` — Elegant Objects OOP standard: object design, method design, prohibited patterns, and the full testing ruleset
+- `guides/style-guide.md` — C++ code style guide
+- `guides/test-guide.md` — Testing principles, unit vs integration test guidelines, and test naming conventions
 
 Apply these standards actively:
 
 - Flag principle violations in **Key Architectural Observations** and **Design Risks**
 - Use the Elegant Objects testing rules as the foundation for every test recommendation
+- Follow test naming conventions from the test guide
+- Apply testing pyramid principles (unit tests 70-80%, integration tests 20-25%)
 
 ### Stage 3 — Read the Researcher Report
 
